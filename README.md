@@ -1,11 +1,18 @@
 # Pacman App
 
+- Create service principal
+
+    ```bash
+    az ad sp create-for-rbac --role="Owner" --scopes="/subscriptions/<subscription_id>"
+    ```
+
+
 ## Build and push Docker Image
 
 - Login into container registry
 
     ```docker
-    docker login douretrogame.azurecr.io
+    docker login containerregistrypacman.azurecr.io
     ```
 
 - Build Docker image
@@ -17,11 +24,19 @@
 - Tag and Push
 
     ```docker
-    docker tag pacman-app douretrogame.azurecr.io/pacman-app
+    docker tag pacman-app containerregistrypacman.azurecr.io/pacman-app
 
-    docker push douretrogame.azurecr.io/pacman-app
+    docker push containerregistrypacman.azurecr.io/pacman-app
     ```
 
+## Conect to Kubernetes Cluster
+
+- Run the following commands
+
+    ```bash
+    az account set --subscription <subscription_id>
+    az aks get-credentials --resource-group <resource_group_name> --name <kubernetes_cluster_name>
+    ```
 ## Run in K8s Cluster
 
 - Create namespace
@@ -45,4 +60,17 @@
 
     ```
     kubectl -n pacman get all
+    ```
+
+## Run in Helm Chart
+
+- Create namespace
+
+    ```k8s
+    kubectl create namespace pacman
+    ```
+- In helm/
+
+    ```helm
+    helm install retropacmanapp . -n pacman
     ```
