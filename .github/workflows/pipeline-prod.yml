@@ -1,4 +1,4 @@
-name: Relase Docker image into ACR
+name: Release Docker image into ACR
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
 
-  builds:
+  Release:
 
     runs-on: ubuntu-latest
 
