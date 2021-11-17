@@ -1,58 +1,48 @@
-# pacman
-Pac-Man
+# Pacman App
 
-## Install dependencies
+## Build and push Docker Image
 
-```
-npm install
-```
+- Login into container registry
 
-## Getting started
+    ```docker
+    docker login douretrogame.azurecr.io
+    ```
 
-```
-npm run start
-```
+- Build Docker image
+  
+    ```docker
+    docker build -t pacman-app .
+    ```
 
-## Development
+- Tag and Push
 
-```
-npm run dev
-```
+    ```docker
+    docker tag pacman-app douretrogame.azurecr.io/pacman-app
 
-## Create Application Container Image
+    docker push douretrogame.azurecr.io/pacman-app
+    ```
 
-### Docker Container Image
+## Run in K8s Cluster
 
-The [Dockerfile](docker/Dockerfile) performs the following steps:
+- Create namespace
 
-1. It is based on Node.js LTS Version 6 (Boron).
-1. It then clones the Pac-Man game into the configured application directory.
-1. Exposes port 8080 for the web server.
-1. Starts the Node.js application using `npm start`.
+    ```k8s
+    kubectl create namespace pacman
+    ```
+- In k8s/db
 
-To build the image run:
+    ```k8s
+    kubectl -n pacman apply -f .
+    ```
 
-```
-cd docker
-docker build -t <registry>/<user>/pacman-nodejs-app .
-```
+- In k8s/app
 
-You can test the image by running:
+    ```k8s
+    kubectl -n pacman apply -f .
+    ```
 
-```
-docker run -p 8000:8080 <registry>/<user>/pacman-nodejs-app
-```
+- Get all in pacman ns
 
-And going to `http://localhost:8000/` to see if you get the Pac-Man game.
-
-Once you're satisfied you can push the image to the container registry.
-
-```
-docker push <registry>/<user>/pacman-nodejs-app
-```
-
-### Building using an s2i image
-
-```
-s2i build . centos/nodejs-6-centos7 pacman
-```
+    ```
+    kubectl -n pacman get all
+    ```
