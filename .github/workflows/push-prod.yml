@@ -31,3 +31,25 @@ jobs:
     
     - name: Push Docker image into ACR
       run: docker push ${{ secrets.ACR_SERVER }}/pacman-app
+
+  Deploy:
+  
+    needs: Release
+    
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Azure Kubernetes set context
+      uses: Azure/aks-set-context@v1.1
+      with:
+        # Azure credentials i.e. output of `az ad sp create-for-rbac --sdk-auth`
+        creds: ${{ secrets.AZ_CREDS }}
+        # Resource Group Name
+        resource-group:  ${{ secrets.AKS_RG }}
+        # AKS Cluster Name
+        cluster-name:  ${{ secrets.AKS_NAME }}
+    
+    - name: Restart Deployment
+      run: kubectl -n pacman rollout restart deployment pacman
