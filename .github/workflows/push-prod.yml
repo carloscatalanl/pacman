@@ -31,7 +31,20 @@ jobs:
     
     - name: Push Docker image into ACR
       run: docker push ${{ secrets.ACR_SERVER }}/pacman-app
-
-        
-        
     
+  Deploy:
+  
+    needs: Release
+    
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Deploy to Kubernetes cluster
+      uses: Azure/k8s-deploy@v1.3
+      with:
+        namespace: pacman
+        # Path to the manifest files which will be used for deployment.
+        manifests: k8s/
+        images: ${{ secrets.ACR_SERVER }}/pacman-app:latest
