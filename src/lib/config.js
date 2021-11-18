@@ -1,7 +1,6 @@
 var service_host = 'localhost'
 var auth_details = ''
-var mongo_database = 'pacmannnn'
-// var mongo_database = 'pacman'
+var mongo_database = 'pacman'
 var mongo_port = '27017'
 var use_ssl = false
 var validate_ssl = true
