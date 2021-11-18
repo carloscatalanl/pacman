@@ -51,15 +51,5 @@ jobs:
         # AKS Cluster Name
         cluster-name:  ${{ secrets.AKS_NAME }}
     
-    - name: Deploy to Kubernetes cluster
-      uses: Azure/k8s-deploy@v1.3
-      with:
-        namespace: pacman
-        manifests: k8s/
-        images: ${{ secrets.ACR_SERVER }}/pacman-app:latest
-        # Deployment strategy to be used. Allowed values are none, canary and blue-green
-        strategy: none
-        # deploy/promote/reject
-        action: deploy
-        # Github token
-        token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Restart deployment
+      run: kubectl -n pacman rollout restart deployment pacman
