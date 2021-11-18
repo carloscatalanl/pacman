@@ -7,8 +7,8 @@ WORKDIR /usr/src/app
 # Clone game source code
 COPY src/ .
 
-# Build app
-RUN npm build .
+# # Build app
+# RUN npm build .
 
 # Install app dependencies
 RUN npm install
