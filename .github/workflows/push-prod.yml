@@ -2,7 +2,7 @@ name: Release Docker image into ACR
 
 on:
   push:
-    branches: [ master ]
+    branches: [ gha ]
 
 jobs:
 
