@@ -1,4 +1,4 @@
-name: Release Docker image into ACR
+name: Deploy APP into AKS
 
 on:
   push:
