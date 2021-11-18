@@ -2,7 +2,7 @@ name: Release Docker image into ACR
 
 on:
   push:
-    branches: [ gha ]
+    branches: [ master ]
 
 jobs:
 
@@ -51,5 +51,5 @@ jobs:
         # AKS Cluster Name
         cluster-name:  ${{ secrets.AKS_NAME }}
     
-    - name: Restart deployment
+    - name: Restart Deployment
       run: kubectl -n pacman rollout restart deployment pacman
