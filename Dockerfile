@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 COPY src/ .
 
 # Build app
-RUN npm build
+RUN npm build .
 
 # Install app dependencies
 RUN npm install
