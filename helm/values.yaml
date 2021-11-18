@@ -6,7 +6,7 @@ replicaCount: 1
 
 # APPLICATION
 image:
-  repository: containerregistrypacman.azurecr.io/pacman-app
+  repository: carloscatalanl.azurecr.io/pacman-app
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
