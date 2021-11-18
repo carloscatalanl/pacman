@@ -55,6 +55,11 @@ jobs:
       uses: Azure/k8s-deploy@v1.3
       with:
         namespace: pacman
-        # Path to the manifest files which will be used for deployment.
         manifests: k8s/
-        images: ${{ secrets.ACR_SERVER }}/pacman-app:latest 
+        images: ${{ secrets.ACR_SERVER }}/pacman-app:latest
+        # Deployment strategy to be used. Allowed values are none, canary and blue-green
+        strategy: none
+        # deploy/promote/reject
+        action: deploy
+        # Github token
+        token: ${{ secrets.GITHUB_TOKEN }}
