@@ -1,5 +1,6 @@
 # Pacman App
 
+## Configure Azure
 - Create service principal
 
     ```bash
@@ -21,11 +22,15 @@
     docker build -t pacman-app .
     ```
 
-- Tag and Push
+- Tag image
 
     ```docker
     docker tag pacman-app containerregistrypacman.azurecr.io/pacman-app
+    ```
 
+- Push image
+
+    ```docker
     docker push containerregistrypacman.azurecr.io/pacman-app
     ```
 

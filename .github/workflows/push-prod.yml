@@ -1,21 +1,20 @@
-name: Relase Docker image into ACR
+name: Release Docker image into ACR
 
 on:
   push:
-    branches: [ master ]
+    branches: [ na ]
   pull_request:
-    branches: [ master ]
+    branches: [ na ]
 
 jobs:
 
-  buildx:
+  Release:
 
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
     
-
     - name: Azure Container Registry Login
       uses: Azure/docker-login@v1
       with:
