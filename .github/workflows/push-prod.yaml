@@ -22,7 +22,9 @@ jobs:
 
 
   Release:
-
+    
+    needs: Test
+    
     runs-on: ubuntu-latest
 
     steps:
