@@ -1,13 +1,24 @@
-name: Deploy APP into AKS
+name: Deploy APP into Test Env
 
 on:
   push:
     branches: [ "master" ]
 
 jobs:
+  
+  Test:
+  
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    
+
 
   Release:
-
+    
+    needs: Test
+    
     runs-on: ubuntu-latest
 
     steps:
