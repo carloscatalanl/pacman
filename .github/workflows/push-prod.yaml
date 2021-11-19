@@ -47,9 +47,9 @@ jobs:
         # Azure credentials i.e. output of `az ad sp create-for-rbac --sdk-auth`
         creds: ${{ secrets.AZ_CREDS }}
         # Resource Group Name
-        resource-group:  ${{ secrets.AKS_RG }}
+        resource-group:  pacmanRG
         # AKS Cluster Name
-        cluster-name:  ${{ secrets.AKS_NAME }}
+        cluster-name:  pacmanAKS
     
     - name: Restart Deployment
       run: kubectl -n pacman rollout restart deployment pacman
