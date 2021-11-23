@@ -1,4 +1,4 @@
-name: Deploy APP into Test Env
+name: Deploy APP into QA Env
 
 on:
   push:
@@ -9,16 +9,14 @@ jobs:
   Test:
   
     runs-on: ubuntu-latest
+    
     steps:
     - uses: actions/checkout@v2
     
-    
-
 
   Release:
     
     needs: Test
-    
     runs-on: ubuntu-latest
 
     steps:
@@ -30,11 +28,8 @@ jobs:
     - name: Azure Container Registry Login
       uses: Azure/docker-login@v1
       with:
-        # Container registry username
         username: ${{ secrets.ACR_USER }}
-        # Container registry password
         password: ${{ secrets.ACR_PASSWORD }}
-        # Container registry server url
         login-server: ${{ secrets.ACR_SERVER }}
       
     - name: Tag Docker image
@@ -46,7 +41,6 @@ jobs:
   Deploy:
   
     needs: Release
-    
     runs-on: ubuntu-latest
 
     steps:
@@ -57,9 +51,7 @@ jobs:
       with:
         # Azure credentials i.e. output of `az ad sp create-for-rbac --sdk-auth`
         creds: ${{ secrets.AZ_CREDS }}
-        # Resource Group Name
         resource-group: rg-retro_pacman
-        # AKS Cluster Name
         cluster-name: kc_retro_pacman
     
     - name: Restart Deployment
