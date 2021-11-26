@@ -1,8 +1,10 @@
-name: Deploy APP into QA Env
+name: Deploy APP into Production Env
 
 on:
-  push:
-    branches: [ "testing" ]
+
+  pull_request:
+    branches:
+      - master
 
 jobs:
   
@@ -30,15 +32,15 @@ jobs:
     - name: Azure Container Registry Login
       uses: Azure/docker-login@v1
       with:
-        username: ${{ secrets.ACR_USER_TEST }}
-        password: ${{ secrets.ACR_PASSWORD_TEST }}
-        login-server: ${{ secrets.ACR_SERVER_TEST }}
+        username: ${{ secrets.ACR_USER }}
+        password: ${{ secrets.ACR_PASSWORD }}
+        login-server: ${{ secrets.ACR_SERVER }}
       
     - name: Tag Docker image
-      run: docker tag pacman-app ${{ secrets.ACR_SERVER_TEST }}/pacman-app
+      run: docker tag pacman-app ${{ secrets.ACR_SERVER }}/pacman-app
     
     - name: Push Docker image into ACR
-      run: docker push ${{ secrets.ACR_SERVER_TEST }}/pacman-app
+      run: docker push ${{ secrets.ACR_SERVER }}/pacman-app
 
   Deploy:
   
@@ -53,8 +55,8 @@ jobs:
       with:
         # Azure credentials i.e. output of `az ad sp create-for-rbac --sdk-auth`
         creds: ${{ secrets.AZ_CREDS }}
-        resource-group: rg-retro_pacman-test
-        cluster-name: kc_retro_pacman-qa
+        resource-group: rg-retro_pacman
+        cluster-name: kc_retro_pacman
     
     - name: Restart Deployment
       run: kubectl -n pacman rollout restart deployment pacman
