@@ -54,7 +54,7 @@ jobs:
         # Azure credentials i.e. output of `az ad sp create-for-rbac --sdk-auth`
         creds: ${{ secrets.AZ_CREDS }}
         resource-group: rg-retro_pacman-test
-        cluster-name: kc_retro_pacman-qa
+        cluster-name: kc_retro_pacman_test
     
     - name: Restart Deployment
       run: kubectl -n pacman rollout restart deployment pacman
